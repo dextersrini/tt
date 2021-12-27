@@ -2,8 +2,6 @@ package com.lessons.tt.controller;
 
 import com.lessons.tt.entity.ProductBean;
 import com.lessons.tt.service.ProductService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +29,8 @@ public class MyRestController {
     }
 
     @GetMapping(path = "/products")
-    @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")})
+/*    @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")})*/
     public List<ProductBean> getAllProducts() throws InterruptedException{
         Thread.sleep(3000);
         return prodService.getAllProducts();
