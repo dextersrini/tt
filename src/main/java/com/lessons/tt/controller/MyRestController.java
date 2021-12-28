@@ -29,13 +29,19 @@ public class MyRestController {
     }
 
     @GetMapping(path = "/products")
-/*    @HystrixCommand(fallbackMethod = "fallback", commandProperties = {
+    /**
+     * Given below is the configuration for hystrix - circuit breaker pattern.
+     */
+    /*@HystrixCommand(fallbackMethod = "fallback", commandProperties = {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")})*/
     public List<ProductBean> getAllProducts() throws InterruptedException{
         Thread.sleep(3000);
         return prodService.getAllProducts();
     }
 
+    /**
+     * Fall back implementation method for hystrix. Below method gets invoked on configured timeout.
+     */
     private String fallback() {
         return "Request taking longer than expected. Please try again later ";
     }
