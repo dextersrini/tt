@@ -5,6 +5,7 @@ import com.lessons.tt.service.ProductService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,12 @@ public class MyRestController {
     @Autowired
     ProductService prodService;
 
+    @Value("${spring.application.name}")
+    private String appName;
+
     @GetMapping(path = "/greet")
     public String greetMe(){
-        return "Hello there";
+        return "Hello there from " + appName;
     }
 
     @PostMapping(path = "/addProduct")
